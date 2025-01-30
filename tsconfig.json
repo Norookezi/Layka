@@ -1,0 +1,47 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "lib": [ "ESNext", "DOM" ],
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleDetection": "force",
+    "moduleResolution": "bundler",
+    "noEmitOnError": true,
+    "sourceMap": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "rootDir": "./",
+    "outDir": "./dist/",
+
+    // Best practices
+    "strict": true,
+    "alwaysStrict": true,
+    "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": false,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": false,
+
+    // Some stricter flags (disabled by default)
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "allowUnusedLabels": false,
+    "noImplicitOverride": true,
+
+    "baseUrl": "./src/",
+    "paths": {
+      "@services/*": [ "./services/*"],
+      "@events/*": [ "./events/*"],
+      "@commands/*": [ "./commands/*"],
+      "@d/*": ["../*"],
+      "@mp3/*": ["./speech/*"]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./src/**/*.ts"
+  ]
+}

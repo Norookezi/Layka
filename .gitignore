@@ -1,0 +1,17 @@
+# Environment configuration
+**/.env
+
+# VS Code Configuration
+**/.vscode/
+
+# Node
+node_modules
+
+# TTS
+speech/*
+src/_cores/*
+
+# Logs, Debug and disabled files
+_*
+*.log
+*.debug
