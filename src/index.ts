@@ -1,7 +1,9 @@
+import { ApiClient, HelixUser } from "@twurple/api";
 import { config } from "dotenv";
 import { Bot, MessageEvent } from "@twurple/easy-bot";
 import { AccessToken, RefreshingAuthProvider } from "@twurple/auth";
-
+import { PubSubClient, PubSubRedemptionMessage } from "@twurple/pubsub";
+import { redeemTTS } from "redemptions/TTS.redeem";
 
 // Load environment variables from .env file
 config();
@@ -26,10 +28,15 @@ await refreshingProvider.addUserForToken(
   ["chat"]
 );
 
-const bot = new Bot({
+const bot: Bot = new Bot({
   authProvider: refreshingProvider,
-  channels: ["norookezi"],
+  channels: [env["channelName"]!],
 });
+const pubSubClient = new PubSubClient({ authProvider: refreshingProvider });
+const apiClient = new ApiClient({ authProvider: refreshingProvider });
+const broadcasterChannel: HelixUser | null = await apiClient.users.getUserById(
+  env["channelId"]!
+);
 
 bot.onConnect(() => {
   console.log("Connected to Twitch !");
@@ -45,3 +52,18 @@ bot.onMessage(async (msg: MessageEvent) => {
       break;
   }
 });
+
+pubSubClient.onRedemption(
+  env["channelId"]!,
+  async (redeem: PubSubRedemptionMessage) => {
+    const { rewardTitle } = redeem;
+
+    // console.log('Redeem received:', rewardTitle, message, );
+
+    switch (rewardTitle) {
+      case "TTS":
+        await redeemTTS(bot, apiClient, broadcasterChannel!, redeem);
+        break;
+    }
+  }
+);
