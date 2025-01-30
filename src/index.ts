@@ -5,6 +5,7 @@ import { AccessToken, RefreshingAuthProvider } from "@twurple/auth";
 import { PubSubClient, PubSubRedemptionMessage } from "@twurple/pubsub";
 import { redeemTTS } from "redemptions/TTS.redeem";
 import { getUser } from "@commands/get.command";
+import { Reward } from 'utilities/reward.utils';
 
 // Load environment variables from .env file
 config();
@@ -38,6 +39,32 @@ const apiClient = new ApiClient({ authProvider: refreshingProvider });
 const broadcasterChannel: HelixUser | null = await apiClient.users.getUserById(
   env["channelId"]!
 );
+
+if (!(await apiClient.channelPoints.getCustomRewards(broadcasterChannel!.id)).find(reward => reward.title === "TTS")) {
+    try {
+        const redeemTTS = new Reward(broadcasterChannel!, apiClient);
+      
+        redeemTTS.data = {
+          autoFulfill: false,
+          backgroundColor: "#c868f5",
+          cost: 10,
+          globalCooldown: 60, //Cooldown in seconds
+          isEnabled: true,
+          maxRedemptionsPerStream: 0, // Max number of redemptions per stream
+          maxRedemptionsPerUserPerStream: 0,
+          prompt: "Un bot lira votre message en live (Followers depuis +7 jours)",
+          title: "TTS",
+          userInputRequired: true,
+        };
+      
+        redeemTTS.create();
+
+    } catch (err) {
+        console.error(`Failed to create reward: ${err}`);
+        throw err;
+    }
+
+}
 
 bot.onConnect(() => {
   console.log("Connected to Twitch !");
