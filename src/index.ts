@@ -4,6 +4,7 @@ import { Bot, MessageEvent } from "@twurple/easy-bot";
 import { AccessToken, RefreshingAuthProvider } from "@twurple/auth";
 import { PubSubClient, PubSubRedemptionMessage } from "@twurple/pubsub";
 import { redeemTTS } from "redemptions/TTS.redeem";
+import { getUser } from "@commands/get.command";
 
 // Load environment variables from .env file
 config();
@@ -48,6 +49,10 @@ bot.onMessage(async (msg: MessageEvent) => {
   const [command, ...args] = msg.text.substring(1).split(" ");
 
   switch (command) {
+    case "get":
+      await getUser(apiClient, broadcasterChannel!, msg, args);
+      break;
+
     default:
       break;
   }
