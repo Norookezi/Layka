@@ -122,6 +122,35 @@ export class Reward {
         return true;
     }
 
+    /**
+     * Update custom reward for the broadcaster's channel using the current instance's properties.
+     * 
+     * This method uses the Twitch API to update custom reward with the properties set in the current Reward instance.
+     * 
+     * @throws {Error} If the reward creation fails, an error is logged and thrown.
+     * @returns {Promise<boolean>} A promise that resolves to true if the reward is successfully created and the instance is updated.
+     */
+    async update(): Promise<boolean> {
+        try {
+            await this._apiClient.channelPoints.updateCustomReward(this._broadcaster.id, this.id, {
+                autoFulfill: this.autoFulfill,
+                backgroundColor: this.backgroundColor,
+                cost: this.cost,
+                globalCooldown: this.globalCooldown,
+                isEnabled: this.isEnabled,
+                maxRedemptionsPerStream: this.maxRedemptionsPerStream,
+                maxRedemptionsPerUserPerStream: this.maxRedemptionsPerUserPerStream,
+                prompt: this.prompt,
+                title: this.title,
+                userInputRequired: this.userInputRequired
+            })
+
+            return true;
+        } catch (err) {
+            console.error(`Failed to update reward: ${err}`);
+            return false;
+        }
+    }
 
     set data(data: { 
         autoFulfill?: boolean
