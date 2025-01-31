@@ -4,8 +4,9 @@ import { Bot, MessageEvent } from "@twurple/easy-bot";
 import { AccessToken, RefreshingAuthProvider } from "@twurple/auth";
 import { PubSubClient, PubSubRedemptionMessage } from "@twurple/pubsub";
 import { redeemTTS } from "redemptions/TTS.redeem";
-import { getUser } from "@commands/get.command";
-import { Reward } from 'utilities/reward.utils';
+import { getUser } from "@commands/get";
+import { Http } from 'httpServer';
+import { Reward } from '@utils/reward';
 
 // Load environment variables from .env file
 config();

@@ -31,11 +31,13 @@
 
     "baseUrl": "./src/",
     "paths": {
-      "@services/*": [ "./services/*"],
-      "@events/*": [ "./events/*"],
-      "@commands/*": [ "./commands/*"],
+      "@core/*": [ "./cores/*.core"],
+      "@services/*": [ "./services/*.service"],
+      "@events/*": [ "./events/*.events"],
+      "@commands/*": [ "./commands/*.command"],
       "@d/*": ["../*"],
-      "@mp3/*": ["./speech/*"]
+      "@mp3/*": ["./speech/*"],
+      "@utils/*": ["./utilities/*.utils"],
     }
   },
   "exclude": [

@@ -1,7 +1,7 @@
 import { ApiClient, HelixUser } from '@twurple/api';
-import { TTS } from "@services/textToSpeech.service";
-import { TTSCore } from "cores/TTS.core";
-import { getUserFollow } from 'utilities/getUserFollow.utils';
+import { TTS } from "@services/textToSpeech";
+import { TTSCore } from "@core/TTS";
+import { getUserFollow } from '@utils/getUserFollow';
 import { Bot } from '@twurple/easy-bot';
 import { PubSubRedemptionMessage } from '@twurple/pubsub';
 
