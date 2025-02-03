@@ -8,7 +8,7 @@
 node_modules
 
 # TTS
-speech/*
+public/assets/mp3/*
 
 # Logs, Debug and disabled files
 _*
